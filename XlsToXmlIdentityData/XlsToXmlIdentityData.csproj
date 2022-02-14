@@ -9,4 +9,10 @@
     <PackageReference Include="EPPlus" Version="5.8.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Identity.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
