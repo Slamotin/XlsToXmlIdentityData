@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:v01="http://www.fss.ru/integration/types/common/v01" xmlns:urn="urn:ru:fss:integration:types:rpu:InsuredPerson:v01" xmlns:v02="http://www.fss.ru/integration/types/person/v02" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:ru:fss:integration:types:rpu:InsuredPerson:v01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://www.fss.ru/integration/types/person/v02" />
+  <xs:import namespace="http://www.fss.ru/integration/types/common/v01" />
+  <xs:element name="insuredPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="fullName">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="v02:firstName" />
+              <xs:element ref="v02:lastName" />
+              <xs:element ref="v02:middleName" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="birthDate" type="xs:date" />
+        <xs:element name="gender" type="xs:string" />
+        <xs:element name="snils" type="xs:unsignedByte" />
+        <xs:element name="inn" type="xs:unsignedByte" />
+        <xs:element name="identityDocument">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="passport">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="series" type="xs:unsignedByte" />
+                    <xs:element name="number" type="xs:unsignedByte" />
+                    <xs:element name="issueDate" type="xs:date" />
+                    <xs:element name="whoIssued" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="regAddress">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="fiasAddress">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="v01:houseGuid" />
+                    <xs:element ref="v01:flat" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="postalCode" type="xs:unsignedInt" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="methodReceivePayment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="v01:bankInfo" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

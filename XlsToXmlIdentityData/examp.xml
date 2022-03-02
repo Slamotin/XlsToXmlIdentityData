@@ -1,0 +1,33 @@
+<urn:insuredPerson xmlns:urn="urn:ru:fss:integration:types:rpu:InsuredPerson:v01" xmlns:v01="http://www.fss.ru/integration/types/common/v01" xmlns:v02="http://www.fss.ru/integration/types/person/v02">
+  <urn:fullName>
+    <v02:firstName>Александр</v02:firstName>
+    <v02:lastName>Тараторкин</v02:lastName>
+    <v02:middleName>Викторович</v02:middleName>
+  </urn:fullName>
+  <urn:birthDate>1984-07-14</urn:birthDate>
+  <urn:gender>FEMALE</urn:gender>
+  <urn:snils>00000000000</urn:snils>
+  <urn:inn>000000000000</urn:inn>
+  <urn:identityDocument>
+    <urn:passport>
+      <urn:series>0000</urn:series>
+      <urn:number>000000</urn:number>
+      <urn:issueDate>2002-07-08</urn:issueDate>
+      <urn:whoIssued>000-000 ОВД Московского округа г.Калуги</urn:whoIssued>
+    </urn:passport>
+  </urn:identityDocument>
+  <urn:regAddress>
+    <urn:fiasAddress>
+      <v01:houseGuid>091da52c-0db2-4331-abd7-3fc715f3316f</v01:houseGuid>
+      <v01:flat>1</v01:flat>
+    </urn:fiasAddress>
+    <urn:postalCode>248007</urn:postalCode>
+  </urn:regAddress>
+  <urn:methodReceivePayment>
+    <v01:bankInfo>
+      <v01:bankName>СМОЛЕНСКОЕ ОТДЕЛЕНИЕ N8609 ПАО СБЕРБАНК</v01:bankName>
+      <v01:bik>046614632</v01:bik>
+      <v01:accountNum>00000000000000000000</v01:accountNum>
+    </v01:bankInfo>
+  </urn:methodReceivePayment>
+</urn:insuredPerson>

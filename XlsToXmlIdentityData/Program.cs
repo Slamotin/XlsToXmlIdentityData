@@ -6,6 +6,13 @@ namespace XlsToXmlIdentityData
 {
     class Program
     {
+        private static void AddChildNode(string childName, string childText, XmlElement parentNode, XmlDocument doc)
+        {
+            var child = doc.CreateElement(childName);
+            child.InnerText = childText;
+            parentNode.AppendChild(child);
+        }
+
         static void Main(string[] args)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -33,8 +40,32 @@ namespace XlsToXmlIdentityData
             }
 
             XmlDocument xmlDocument = new XmlDocument();
-            //XmlElement peoples = new XmlElement("peoples");
+            var xmlDeclaration = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDocument.AppendChild(xmlDeclaration);
 
+            var root = xmlDocument.CreateElement("peoples");
+            foreach (PersonIdentity personIdentity in person)
+            {
+                try
+                {
+                    var node = xmlDocument.CreateElement("person");
+                    var attribute = xmlDocument.CreateAttribute("FIO");
+                    attribute.InnerText = personIdentity.fullName;
+                    node.Attributes.Append(attribute);
+                    AddChildNode("lastName", personIdentity.lastName, node, xmlDocument);
+                    AddChildNode("firstName", personIdentity.firstName, node, xmlDocument);
+                    AddChildNode("middleName", personIdentity.middleName, node, xmlDocument);
+                    AddChildNode("birthdate", personIdentity.birthDate, node, xmlDocument);
+                    root.AppendChild(node);
+                }
+                catch
+                {
+                    Console.WriteLine("null element");
+                }
+
+                
+            }
+            xmlDocument.AppendChild(root);
 
 
             xmlDocument.Save("example.xml");

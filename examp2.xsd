@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.fss.ru/integration/types/common/v01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.fss.ru/integration/types/common/v01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="houseGuid" type="xs:string" />
+  <xs:element name="flat" type="xs:unsignedByte" />
+  <xs:element name="bankInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="bankName" type="xs:string" />
+        <xs:element name="bik" type="xs:unsignedInt" />
+        <xs:element name="accountNum" type="xs:unsignedByte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="examp.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Identity.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

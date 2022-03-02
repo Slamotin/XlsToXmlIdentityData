@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.fss.ru/integration/types/person/v02" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.fss.ru/integration/types/person/v02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="firstName" type="xs:string" />
+  <xs:element name="lastName" type="xs:string" />
+  <xs:element name="middleName" type="xs:string" />
+</xs:schema>
