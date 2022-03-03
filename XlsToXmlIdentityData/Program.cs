@@ -1,6 +1,8 @@
 ﻿using System;
 using OfficeOpenXml;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace XlsToXmlIdentityData
 {
@@ -13,31 +15,35 @@ namespace XlsToXmlIdentityData
             parentNode.AppendChild(child);
         }
 
+        static void SchemaValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+            switch (e.Severity)
+            {
+                case XmlSeverityType.Error:
+                    Console.WriteLine("\nError: {0}", e.Message);
+                    break;
+                case XmlSeverityType.Warning:
+                    Console.WriteLine("\nWarning: {0}", e.Message);
+                    break;
+            }
+        }
+
         static void Main(string[] args)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var package = new ExcelPackage(new System.IO.FileInfo(@"Identity.xlsx"));
-            var worksheets = package.Workbook.Worksheets;
-            var worksheet = worksheets[0];
-            var lastRow = worksheet.Dimension.End.Row;
-            PersonIdentity[] person = new PersonIdentity[lastRow - 1];
+            XmlReader reader = XmlReader.Create("newfile.xml");
+            XmlSerializer serializer = new XmlSerializer(typeof(insuredPerson));
+            insuredPerson persons = (insuredPerson)serializer.Deserialize(reader);
 
-            for (int curRow = 1; curRow < lastRow; curRow++)
-            {
-                try
-                {
-                    string FIO = worksheet.Cells[curRow + 1, 1].Value.ToString();
-                    string birthDate = worksheet.Cells[curRow + 1, 5].Value.ToString();
-                    person[curRow - 1] = new PersonIdentity(FIO, birthDate);
-                }
-                catch(NullReferenceException ex)
-                {
+            XmlSchemaSet schemaSet = new XmlSchemaSet();
+            schemaSet.Add("http://www.fss.ru/integration/types/person/v02", "examp.xsd");
 
-                    Console.WriteLine("No birthdate in " + curRow + " row");
-                }
-                
-                
-            }
+            XmlNamespaceManager xmlNamespaceManager = new XmlNamespaceManager(reader.NameTable);
+
+            XmlSchemaValidator xmlSchemaValidator = new XmlSchemaValidator(reader.NameTable, schemaSet, xmlNamespaceManager, XmlSchemaValidationFlags.None);
+            xmlSchemaValidator.ValidationEventHandler += new ValidationEventHandler(SchemaValidationEventHandler);
+
+            xmlSchemaValidator.Initialize();
+
 
             XmlDocument xmlDocument = new XmlDocument();
             var xmlDeclaration = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);

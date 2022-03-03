@@ -3,9 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OfficeOpenXml;
+using System.Xml;
 
 namespace XlsToXmlIdentityData
 {
+    class ExcelReader
+    {
+        public ExcelReader(string filepath)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var package = new ExcelPackage(new System.IO.FileInfo(@"Identity.xlsx"));
+            var worksheets = package.Workbook.Worksheets;
+            var worksheet = worksheets[0];
+            var lastRow = worksheet.Dimension.End.Row;
+            insuredPerson[] person = new insuredPerson[lastRow - 1];
+
+            for (int curRow = 1; curRow < lastRow; curRow++)
+            {
+                try
+                {
+                    string FIO = worksheet.Cells[curRow + 1, 1].Value.ToString();
+                    string birthDate = worksheet.Cells[curRow + 1, 5].Value.ToString();
+                    person[curRow - 1] = new insuredPerson();
+                }
+                catch (NullReferenceException ex)
+                {
+
+                    Console.WriteLine("No birthdate in " + curRow + " row");
+                }
+            }
+        }
+
     class PersonIdentity
     {
         public string fullName { get; }
